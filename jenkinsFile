@@ -12,6 +12,14 @@ pipeline{
     stages{
         stage("compile"){
             steps{
+
+                  script {
+                    // Capture Maven home directory
+                    def mvnHome = tool 'Maven'
+                    env.PATH = "${mvnHome}/bin:${env.PATH}"
+                    // Set maven variable
+                    maven = "${mvnHome}/bin/mvn"
+                  }
            sh 'javac Test.java'
            sh 'echo "${VERSION_NAME}"'
            sh 'echo "${maven}"'
